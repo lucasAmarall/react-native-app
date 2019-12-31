@@ -47,3 +47,11 @@ export const NewAccount = styled(Button).attrs({
 })`
   margin-bottom: 377;
 `;
+
+export const Title = styled.Text`
+  font-size: 32;
+  margin-bottom: 50;
+  font-weight: 800;
+  margin-top: 50%; 
+  align-self: center;
+`

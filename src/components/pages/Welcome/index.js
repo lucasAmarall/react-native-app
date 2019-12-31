@@ -9,6 +9,7 @@ import {
   SliderIndicator,
   NewAccount,
   Container,
+  Title
 } from './styles';
 import dictionry from './dictinary';
 
@@ -45,7 +46,7 @@ const Form = item => {
       isFirst={item.id === 1}
       isLast={item.id === slides.length}>
       <Block normalRadius>
-        <Text style={{ fontSize: 32, fontWeight: '800', alignSelf: 'center', marginBottom: 50, marginTop: '50%' }}>Welcome</Text>
+        <Title>Welcome</Title>
         <LoginButton>{dictionry.buttonLabel}</LoginButton>
         <NewAccount>{dictionry.newAccount}</NewAccount>
       </Block>
