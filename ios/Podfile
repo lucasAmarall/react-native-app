@@ -42,12 +42,12 @@ target 'macShop' do
   use_native_modules!
 end
 
-target 'macShop-tvOS' do
-  # Pods for macShop-tvOS
+# target 'macShop-tvOS' do
+#   # Pods for macShop-tvOS
 
-  target 'macShop-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+#   target 'macShop-tvOSTests' do
+#     inherit! :search_paths
+#     # Pods for testing
+#   end
 
-end
+# end
