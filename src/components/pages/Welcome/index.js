@@ -41,6 +41,7 @@ const slides = [
 
 const Form = item => {
   const openModal = () => eventBus.$emit('openModal');
+xe
   return (
     <Slide
       normalRadius

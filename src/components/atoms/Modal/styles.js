@@ -9,16 +9,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'white',
     position: 'absolute',
-    justifyContent: 'center',
   },
   screenLocker: {
-    position: 'absolute',
     top: 0,
     left: 0,
+    zIndex: 998,
     minWidth: window.width,
     minHeight: window.height,
     backgroundColor: 'rgba(0,0,0,.8)',
-    zIndex: 998,
+    position: 'absolute',
   },
 });
 

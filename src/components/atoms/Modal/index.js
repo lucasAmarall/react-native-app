@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Animated, TouchableWithoutFeedback} from 'react-native';
+import {Animated, TouchableWithoutFeedback, Text} from 'react-native';
 import window from '../../../constants/window';
 import eventBus from '../../../services/internal/eventBus';
 import LoginButton from '../Button';
@@ -12,12 +12,14 @@ const smallHeight = window.normalizeHeight(332);
 const width = window.normalizeWidth(352);
 const fullWidth = window.width;
 
-const Modal = ({}) => {
+const Modal = () => {
   const [isOpen, changeState] = useState(false);
   const [translateY] = useState(new Animated.Value(0));
   const [opacity] = useState(new Animated.Value(0));
   const [_modalHeight] = useState(new Animated.Value(height));
   const [_modalWidth] = useState(new Animated.Value(width));
+  const [Child, ChangeChild] = useState(() => null);
+
   let busy = false;
   const openModal = () => {
     changeSize(width, height, true);
@@ -72,6 +74,12 @@ const Modal = ({}) => {
     if (busy) {
       return;
     }
+    if(!_component) {
+      console.warn('No component to render')
+      ChangeChild(() => null)
+    } else {
+      ChangeChild(() => _component)
+    }
     busy = true;
     method();
     setTimeout(() => {
@@ -81,8 +89,8 @@ const Modal = ({}) => {
 
   useEffect(() => {
     eventBus.$on('openModal', component => triggerCall(openModal, component));
-    eventBus.$on('closeModal', () => triggerCall(closeModal, null));
-    eventBus.$on('smallModal', component => triggerCall(smallModal, component));
+    eventBus.$on('closeModal', () => triggerCall(closeModal));
+    eventBus.$on('openSmallModal', component => triggerCall(smallModal, component));
     eventBus.$on('openFullModal', component =>
       triggerCall(openFullModal, component),
     );
@@ -99,15 +107,7 @@ const Modal = ({}) => {
           },
           styles.modal,
         ]}>
-        <LoginButton button onPress={() => eventBus.$emit('closeModal')}>
-          closeModal
-        </LoginButton>
-        <LoginButton button onPress={() => eventBus.$emit('smallModal')}>
-          smallModal
-        </LoginButton>
-        <LoginButton button onPress={() => eventBus.$emit('openFullModal')}>
-          openFullModal
-        </LoginButton>
+        { Child && <Child />}
       </Animated.View>
       {isOpen && (
         <TouchableWithoutFeedback onPress={closeModal}>
