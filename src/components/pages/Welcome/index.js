@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Image, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import {Image} from 'react-native';
 import Block from '../../atoms/Block';
 import {
   Slider,
@@ -9,10 +9,10 @@ import {
   SliderIndicator,
   NewAccount,
   Container,
-  Title
+  Title,
 } from './styles';
 import dictionry from './dictinary';
-
+import eventBus from '../../../services/internal/eventBus';
 const firstSlide = require('../../../assets/images/welComeSlides/firstSlide2x.png');
 const menuIcon = require('../../../assets/images/icon/menuIcon.png');
 
@@ -40,6 +40,7 @@ const slides = [
 ];
 
 const Form = item => {
+  const openModal = () => eventBus.$emit('openModal');
   return (
     <Slide
       normalRadius
@@ -47,12 +48,12 @@ const Form = item => {
       isLast={item.id === slides.length}>
       <Block normalRadius>
         <Title>Welcome</Title>
-        <LoginButton>{dictionry.buttonLabel}</LoginButton>
+        <LoginButton onPress={openModal}>{dictionry.buttonLabel}</LoginButton>
         <NewAccount>{dictionry.newAccount}</NewAccount>
       </Block>
     </Slide>
-  )
-}
+  );
+};
 
 const SlideItem = item => {
   return (
@@ -62,10 +63,10 @@ const SlideItem = item => {
       isLast={item.id === slides.length}>
       <Image resizeMode="cover" source={item.image} />
     </Slide>
-  )
-}
+  );
+};
 
-export default function Welcome() {
+const Welcome = () => {
   const [actualSlide, setSlide] = useState(1);
 
   const setActualSlide = event => {
@@ -93,9 +94,9 @@ export default function Welcome() {
           onScroll={setActualSlide}
           data={slides}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item }) => (
-            (item.id === 1) ? Form(item) : SlideItem(item)
-          )}
+          renderItem={({item}) =>
+            item.id === 1 ? Form(item) : SlideItem(item)
+          }
           keyExtractor={item => item.id.toString()}
         />
         <SliderIndicator>
@@ -106,4 +107,10 @@ export default function Welcome() {
       </Block>
     </Container>
   );
-}
+};
+Welcome.navigationOptions = {
+  title: 'Hello world',
+  header: null,
+};
+
+export default Welcome;

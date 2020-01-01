@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
-import {Text,TouchableWithoutFeedback, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {TouchableOpacity} from 'react-native';
 import {PrimaryButton, Label, Link} from './styles';
 
 export default function Button(props) {
   const {children, onPress, button, shadow, link} = props;
   const [hiddeShadow, toggleShadow] = useState(true);
 
-  const pressIn = () => toggleShadow(false)
-  const pressOut = () => toggleShadow(true)
+  const pressIn = () => toggleShadow(false);
+  const pressOut = () => toggleShadow(true);
   return (
-    <TouchableOpacity 
+    <TouchableOpacity
       activeOpacity={1}
-      onPress={onPress} 
+      onPress={onPress}
       onPressOut={pressOut}
-      onPressIn={pressIn}
-    >
+      onPressIn={pressIn}>
       <>
         {button && (
           <PrimaryButton {...props} shadow={shadow && hiddeShadow}>
