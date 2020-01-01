@@ -1,15 +1,15 @@
 class EventBus {
   observers = {};
 
-  on(eventName, func) {
-    let ref = this.observers[eventName];
+  $on(eventName, func) {
+    var ref = this.observers[eventName];
     if (!ref) {
-      ref = [];
+      this.observers[eventName] = [];
     }
-    ref.push(func);
+    this.observers[eventName].push(func);
   }
 
-  emit(eventName, data) {
+  $emit(eventName, data) {
     const functions = this.observers[eventName];
     if (functions) {
       functions.map(func => func(data));
