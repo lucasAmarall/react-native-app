@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {Animated, TouchableWithoutFeedback, Text} from 'react-native';
+import {Animated, TouchableWithoutFeedback} from 'react-native';
 import window from '../../../constants/window';
 import eventBus from '../../../services/internal/eventBus';
-import LoginButton from '../Button';
 import styles from './styles';
 
 const animationTime = 400;
@@ -74,11 +73,11 @@ const Modal = () => {
     if (busy) {
       return;
     }
-    if(!_component) {
-      console.warn('No component to render')
-      ChangeChild(() => null)
+    if (!_component) {
+      console.warn('No component to render');
+      ChangeChild(() => null);
     } else {
-      ChangeChild(() => _component)
+      ChangeChild(() => _component);
     }
     busy = true;
     method();
@@ -90,7 +89,9 @@ const Modal = () => {
   useEffect(() => {
     eventBus.$on('openModal', component => triggerCall(openModal, component));
     eventBus.$on('closeModal', () => triggerCall(closeModal));
-    eventBus.$on('openSmallModal', component => triggerCall(smallModal, component));
+    eventBus.$on('openSmallModal', component =>
+      triggerCall(smallModal, component),
+    );
     eventBus.$on('openFullModal', component =>
       triggerCall(openFullModal, component),
     );
@@ -107,7 +108,7 @@ const Modal = () => {
           },
           styles.modal,
         ]}>
-        { Child && <Child />}
+        {Child && <Child />}
       </Animated.View>
       {isOpen && (
         <TouchableWithoutFeedback onPress={closeModal}>
