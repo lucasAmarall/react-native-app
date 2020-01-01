@@ -23,7 +23,7 @@ export const Slide = styled(Block)`
 
 export const LoginButton = styled(Button).attrs({
   button: true,
-  shadow: true
+  shadow: true,
 })`
   margin: 0 42px 16px 20px;
 `;
@@ -52,6 +52,6 @@ export const Title = styled.Text`
   font-size: 32;
   margin-bottom: 50;
   font-weight: 800;
-  margin-top: 50%; 
+  margin-top: 50%;
   align-self: center;
-`
+`;

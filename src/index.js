@@ -17,7 +17,7 @@ const MainNavigator = createStackNavigator({
 
 const App = createAppContainer(MainNavigator);
 
-const macShop = () => {
+const MacShop = () => {
   return (
     <ThemeProvider theme={themes[useColorScheme()]}>
       <Container>
@@ -28,4 +28,4 @@ const macShop = () => {
   );
 };
 
-export default macShop;
+export default MacShop;
