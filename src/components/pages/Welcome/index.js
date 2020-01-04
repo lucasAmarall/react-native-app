@@ -13,6 +13,8 @@ import {
 } from './styles';
 import dictionry from './dictinary';
 import eventBus from '../../../services/internal/eventBus';
+import SignIn from '../SignIn';
+
 const firstSlide = require('../../../assets/images/welComeSlides/firstSlide2x.png');
 const menuIcon = require('../../../assets/images/icon/menuIcon.png');
 
@@ -40,7 +42,7 @@ const slides = [
 ];
 
 const Form = item => {
-  const openModal = () => eventBus.$emit('openModal');
+  const openModal = () => eventBus.$emit('openModal', SignIn);
   return (
     <Slide
       normalRadius

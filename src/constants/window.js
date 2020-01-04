@@ -5,7 +5,8 @@ const height = Dimensions.get('window').height;
 export default {
   height,
   width,
-  safeWidth: width - 28,
+  safeWidth: width - 20,
+  safeAreaSize: 10,
   normalizeWidth: size => Math.round((width / 375) * size),
   normalizeHeight: size => Math.round((height / 812) * size),
   vh: per => (height / 100) * per,

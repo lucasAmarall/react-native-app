@@ -3,7 +3,7 @@ import {Animated, TouchableWithoutFeedback} from 'react-native';
 import window from '../../../constants/window';
 import eventBus from '../../../services/internal/eventBus';
 import styles from './styles';
-
+import Block from '../../atoms/Block';
 const animationTime = 400;
 const height = window.normalizeHeight(626);
 const fullHeight = window.normalizeHeight(729);
@@ -13,11 +13,12 @@ const fullWidth = window.width;
 
 const Modal = () => {
   const [isOpen, changeState] = useState(false);
+  const [noClose, changeNoClose] = useState(() => null);
   const [translateY] = useState(new Animated.Value(0));
   const [opacity] = useState(new Animated.Value(0));
   const [_modalHeight] = useState(new Animated.Value(height));
   const [_modalWidth] = useState(new Animated.Value(width));
-  const [Child, ChangeChild] = useState(() => null);
+  const [Child, changeChild] = useState(() => null);
 
   let busy = false;
   const openModal = () => {
@@ -26,7 +27,7 @@ const Modal = () => {
   };
 
   const openFullModal = () => {
-    changeSize(fullWidth, fullHeight, true);
+    changeSize(fullWidth, fullHeight, -fullHeight);
     basicOperations(true);
   };
 
@@ -55,6 +56,7 @@ const Modal = () => {
     if (!state) {
       setTimeout(() => {
         changeState(state);
+        changeChild(() => null);
       }, animationTime);
     } else {
       changeState(state);
@@ -69,32 +71,33 @@ const Modal = () => {
     }).start();
   };
 
-  const triggerCall = (method, _component) => {
+  const triggerCall = (method, props) => {
     if (busy) {
       return;
     }
-    if (!_component) {
-      console.warn('No component to render');
-      ChangeChild(() => null);
-    } else {
-      ChangeChild(() => _component);
+
+    let _component = () => null;
+    if (!props) {
+      changeNoClose(false);
+      changeChild(() => _component);
+      method();
+      return;
     }
-    busy = true;
+    props.noClose ? (_component = props.component) : (_component = props);
+    changeNoClose(props.noClose);
+    changeChild(() => _component);
+    busy = !busy;
     method();
     setTimeout(() => {
-      busy = false;
+      busy = !busy;
     }, animationTime);
   };
 
   useEffect(() => {
-    eventBus.$on('openModal', component => triggerCall(openModal, component));
-    eventBus.$on('closeModal', () => triggerCall(closeModal));
-    eventBus.$on('openSmallModal', component =>
-      triggerCall(smallModal, component),
-    );
-    eventBus.$on('openFullModal', component =>
-      triggerCall(openFullModal, component),
-    );
+    eventBus.$on('openModal', props => triggerCall(openModal, props));
+    eventBus.$on('closeModal', props => triggerCall(closeModal, props));
+    eventBus.$on('openSmallModal', props => triggerCall(smallModal, props));
+    eventBus.$on('openFullModal', props => triggerCall(openFullModal, props));
   });
 
   return (
@@ -108,10 +111,10 @@ const Modal = () => {
           },
           styles.modal,
         ]}>
-        {Child && <Child />}
+        <Block normalRadius>{Child && <Child />}</Block>
       </Animated.View>
       {isOpen && (
-        <TouchableWithoutFeedback onPress={closeModal}>
+        <TouchableWithoutFeedback onPress={() => !noClose && closeModal()}>
           <Animated.View
             style={[
               {
