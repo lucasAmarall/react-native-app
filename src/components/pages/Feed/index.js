@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  Text,
-  View,
-  ScrollView,
-  FlatList,
-  Image,
-} from 'react-native';
+import {SafeAreaView, View, ScrollView, FlatList, Image} from 'react-native';
 import window from '../../../constants/window';
 import Block from '../../atoms/Block';
 import Input from '../../atoms/Input';
@@ -64,25 +57,83 @@ const Near = () => (
       />
     </Block>
   </View>
-)
-const Picture = ({item}) => <Image source={{uri: item.img}} style={{flex:1}} resizeMode="stretch" />;
+);
+const Picture = ({item}) => (
+  <Image source={{uri: item.img}} style={{flex: 1}} resizeMode="stretch" />
+);
 
 const types = {
-  unique_0: item => <Block shortRadius><Picture item={item}/></Block>,
-  half_0: item => <Block shortRadius style={{width: ((window.safeWidth / 2) - 5)}}><Picture item={item}/></Block>,
-  half_1: item => <Block shortRadius style={{alignSelf: 'flex-end', width: ((window.safeWidth / 2) - 5)}}><Picture item={item}/></Block>,
-  toRight_0: item => <Block shortRadius debug style={{width: window.safeWidth - 112 - 10, height: 245, position: 'absolute', left: 0, top: 0}}><Picture item={item}/></Block>,
-  toRight_1: item => <Block shortRadius debug style={{width: 112, height: 120, position: 'absolute', right: 0, top: -245}}><Picture item={item}/></Block>,
-  toRight_2: item => <Block shortRadius debug style={{width: 112, height: 120, position: 'absolute', right: 0, top: -365}}><Picture item={item}/></Block>,
-}
+  unique_0: item => (
+    <Block shortRadius>
+      <Picture item={item} />
+    </Block>
+  ),
+  half_0: item => (
+    <Block shortRadius style={{width: window.safeWidth / 2 - 5}}>
+      <Picture item={item} />
+    </Block>
+  ),
+  half_1: item => (
+    <Block
+      shortRadius
+      style={{alignSelf: 'flex-end', width: window.safeWidth / 2 - 5}}>
+      <Picture item={item} />
+    </Block>
+  ),
+  toRight_0: item => (
+    <Block
+      shortRadius
+      style={{
+        width: window.safeWidth - 112 - 10,
+        height: 245,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+      }}>
+      <Picture item={item} />
+    </Block>
+  ),
+  toRight_1: item => (
+    <Block
+      shortRadius
+      style={{
+        width: 112,
+        height: 120,
+        position: 'absolute',
+        right: 0,
+        top: -245,
+      }}>
+      <Picture item={item} />
+    </Block>
+  ),
+  toRight_2: item => (
+    <Block
+      shortRadius
+      style={{
+        width: 112,
+        height: 120,
+        position: 'absolute',
+        right: 0,
+        top: -365,
+      }}>
+      <Picture item={item} />
+    </Block>
+  ),
+};
 
 const Row = ({item, type, position}) => {
-  return(
-    <View style={{backgroundColor: '#f5f6f3', flex: 1,width: '100%', minHeight: 245}}>
+  return (
+    <View
+      style={{
+        backgroundColor: '#f5f6f3',
+        flex: 1,
+        width: '100%',
+        minHeight: 245,
+      }}>
       {types[`${type}_${position}`](item)}
     </View>
   );
-}
+};
 
 const FriendsWeed = () => (
   <View style={{marginTop: 68}}>
@@ -99,8 +150,10 @@ const FriendsWeed = () => (
                 height: 245,
                 marginTop: 8,
               }}>
-              <Block shortRadius row={type === "half"}>
-                {item.items.map((item, index) =>  <Row type={type} item={item} position={index}/>)}
+              <Block shortRadius row={type === 'half'}>
+                {item.items.map((item, index) => (
+                  <Row type={type} item={item} position={index} />
+                ))}
               </Block>
             </View>
           );
@@ -109,7 +162,6 @@ const FriendsWeed = () => (
     </Block>
   </View>
 );
-
 
 const Feed = () => {
   return (

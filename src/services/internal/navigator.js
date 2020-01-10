@@ -1,4 +1,5 @@
 import {NavigationActions} from 'react-navigation';
+import eventBus from './eventBus';
 
 let _navigator;
 
@@ -7,6 +8,7 @@ function setTopLevelNavigator(navigatorRef) {
 }
 
 function navigate(routeName, params) {
+  eventBus.$emit('closeModal');
   _navigator.dispatch(
     NavigationActions.navigate({
       routeName,
@@ -15,13 +17,7 @@ function navigate(routeName, params) {
   );
 }
 
-function push(routeName, params) {
-  console.log(routeName);
-  console.log(_navigator._navigation.popToTop('Feed'));
-}
-
 export default {
   navigate,
-  push,
   setTopLevelNavigator,
 };
