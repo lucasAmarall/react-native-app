@@ -4,11 +4,10 @@ const styles = StyleSheet.create({
   modal: {
     zIndex: 1000,
     elevation: 1000,
-    borderRadius: 30,
     top: '100%',
     alignSelf: 'center',
-    backgroundColor: 'white',
     position: 'absolute',
+    overflow: 'hidden',
   },
   screenLocker: {
     top: 0,

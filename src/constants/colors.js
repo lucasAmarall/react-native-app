@@ -5,6 +5,7 @@ const light = {
   font: {
     primary: '#000',
     secundary: '#fff',
+    primaryTitle: '#0079ff',
   },
   shadow: {
     primary: 'rgba(110, 197, 255,.51)',

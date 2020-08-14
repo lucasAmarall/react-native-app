@@ -6,6 +6,7 @@ import Button from '../../atoms/Button';
 export const Container = styled.SafeAreaView`
   flex: 1;
 `;
+
 export const Slider = styled.FlatList`
   margin: 42px 0 3px;
   margin-right: -10px;

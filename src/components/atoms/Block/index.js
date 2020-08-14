@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-
+import React from 'react';
+import {TouchableWithoutFeedback, Keyboard} from 'react-native';
 const Container = styled.View`
-  flex: 1;
-  ${props => (props.debug ? '  background: yellow' : null)};
+  ${props => !props.noFlex && 'flex: 1'};
+  background: ${props => (props.debug ? 'yellow' : 'white')};
   padding-left: ${props => (props.safeArea ? '10px' : '0')};
   padding-right: ${props => (props.safeArea ? '10px' : '0')};
   border-radius: ${props => {
@@ -18,4 +19,8 @@ const Container = styled.View`
   overflow: hidden;
 `;
 
-export default Container;
+export default props => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <Container {...props} />
+  </TouchableWithoutFeedback>
+);
